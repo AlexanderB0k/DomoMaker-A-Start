@@ -1,4 +1,5 @@
 const controllers = require('./controllers');
+const middleware = require('./middleware');
 
 const router = (app) => {
     app.get('/login', controllers.Account.loginPage);
@@ -14,6 +15,8 @@ const router = (app) => {
 
 
     app.get('/', controllers.Account.loginPage);
+
+    app.get('/', middleware.requiresSecure, middleware.requiresLogout, controllers.Account.loginPage);
 
 }
 
