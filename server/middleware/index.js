@@ -2,6 +2,7 @@ const requiresLogin = (req, res, next) => {
     if (!req.session.account) {
         return res.redirect('/');
     }
+    next();
 }
 
 const requiresLogout = (req, res, next) => {
@@ -16,6 +17,7 @@ const requiresSecure = (req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
         return res.redirect(`https://${req.get('Host')}${req.url}`);
     }
+    next();
 }
 
 const bypassAdmin = (req, res, next) => {
@@ -25,7 +27,7 @@ const bypassAdmin = (req, res, next) => {
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     module.exports.requiresSecure = requiresSecure;
 } else {
     module.exports.requiresSecure = bypassAdmin;

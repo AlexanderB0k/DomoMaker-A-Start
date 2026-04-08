@@ -14,7 +14,7 @@ const redis = require('redis');
 require('dotenv').config();
 
 const redisClient = redis.createClient({
-    url: process.env.REDIS_URL || 'redis://default:NAcibjlBoxKPZUFPyb7eVrNwlv1qakb7@redis-10480.c270.us-east-1-3.ec2.cloud.redislabs.com:10480',
+    url: process.env.REDIS_URL
 });
 
 redisClient.on('error', (err) => {
